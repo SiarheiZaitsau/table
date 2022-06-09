@@ -1,11 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Inter sans-serif;
 }
 
+ul {
+  list-style: none;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -13,4 +16,219 @@ a {
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 1366px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  padding: 0 2rem;
+}
+.link {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.link:hover {
+  opacity: 0.8;
+}
+.highlighted {
+  color: #0064eb;
+}
+.centeredText {
+  text-align: center;
+}
+
+.loader {
+  display: inline-block;
+  transform: translateZ(1px);
+}
+.loader > div {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  background: #fff;
+  animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+@keyframes loader {
+  0%,
+  100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
+  }
+}
+.header {
+  background: #0064eb;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  align-items: center;
+  display: flex;
+  color: #fff;
+  flex: 1;
+}
+.header__navigationList {
+  display: flex;
+  align-items: center;
+}
+.header__navigationItem {
+  margin-right: 24px;
+}
+.header__navigationItem:last-of-type {
+  margin-right: 0;
+}
+
+.header__container {
+  flex-direction: row;
+}
+.users {
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.users__searchInput {
+  width: 300px;
+  padding: 8px;
+  margin-left: auto;
+  margin-bottom: 24px;
+}
+.posts {
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.userPosts__container {
+  padding: 80px 0;
+}
+
+.userPosts__title {
+  margin-bottom: 32px;
+  font-size: 40px;
+}
+.input {
+  font-family: Inter;
+  outline-style: none;
+  box-shadow: none;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+.input:focus {
+  border: 1px solid #0064eb;
+  outline: #0064eb;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  color: #808080;
+  margin-top: auto;
+  margin-left: auto;
+}
+.pagination__button {
+  padding: 2px 6px;
+  margin: 0 5px;
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  color: #808080;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.pagination__button:hover {
+  background-color: #0064eb;
+  color: #fff;
+}
+.pagination__button:focus {
+  background: transparent;
+  color: #808080;
+}
+.pagination__currentPage {
+  background: #0064eb;
+  color: #fff;
+}
+.pagination__dots {
+  padding: 0;
+  pointer-events: none;
+}
+.pagination__changePageButton {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.pagination__changePageButton:first-of-type {
+  margin-right: 14px;
+}
+.pagination__changePageButton:last-of-type {
+  margin-left: 14px;
+  transform: rotate(180deg);
+}
+.pagination__changePageButton:disabled {
+  pointer-events: none;
+}
+.pagination__icon:hover {
+  fill: #0064eb;
+}
+.post {
+  margin-bottom: 16px;
+}
+.post:last-of-type {
+  margin-bottom: 0;
+}
+.post__title {
+  margin-bottom: 12px;
+}
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #dddddd;
+
+  border-collapse: collapse;
+}
+.table th {
+  font-weight: bold;
+  padding: 8px;
+  background: #efefef;
+  border: 1px solid #dddddd;
+  cursor: pointer;
+}
+.table td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+}
+.table__headContent {
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table__headIcon {
+  margin-left: 4px;
+  transition: all 0.3s ease;
+}
+.table__headIcon-rotated {
+  transform: rotate(180deg);
 }

@@ -1,10 +1,10 @@
-import HomeContent from "../components/Home/Home";
+import User from "../components/User/User";
 import Header from "../components/Header/Header";
 export default function Home() {
   return (
     <>
       <Header />
-      <HomeContent />
+      <User />
     </>
   );
 }
