@@ -114,6 +114,19 @@ a {
   flex-direction: column;
   width: 100%;
 }
+.posts__inputContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.posts__searchInput {
+  width: 300px;
+  padding: 8px;
+  margin-right: 12px;
+}
+.posts__searchInput:last-of-type {
+  margin-right: 12px;
+}
 .userPosts__container {
   padding: 80px 0;
 }

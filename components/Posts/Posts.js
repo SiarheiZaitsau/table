@@ -3,7 +3,8 @@ import axios from "axios";
 import Table from "../../elements/Table/Table";
 import Pagination from "../../elements/Pagination/Pagination";
 import Loader from "../../elements/Loader/Loader";
-import { getHighlightedText } from "../../helpers/index";
+import Input from "../../elements/Input/Input";
+
 import {
   TableRow,
   TableHeadItem,
@@ -18,7 +19,9 @@ export default function Posts() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isSorted, setIsSorted] = useState(null);
   const [sortedField, setSortedField] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [postTitleQuery, setPostTitleQuery] = useState("");
+  const [postBodyQuery, setPostBodyQuery] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const numberOfPages = 10;
   const tableHead = ["userId", "title", "body"];
 
@@ -59,12 +62,43 @@ export default function Posts() {
     };
     fetchData();
   }, [currentPage, itemsPerPage]);
+  useEffect(() => {
+    let filtered = [...posts];
+    filtered = posts
+      .filter(
+        (post) =>
+          post.body.toLowerCase().indexOf(postBodyQuery.toLowerCase()) !== -1
+      )
+      .filter(
+        (post) =>
+          post.title.toLowerCase().indexOf(postTitleQuery.toLowerCase()) !== -1
+      );
+    setFilteredPosts(filtered);
+  }, [postTitleQuery, postBodyQuery, posts]);
   if (isLoading) {
     return <Loader />;
   }
+  const searchByText = (string) => {
+    setPostBodyQuery(string);
+  };
+  const searchByTitle = (string) => {
+    setPostTitleQuery(string);
+  };
   return (
     <div className="container">
       <div className="posts">
+        <div className="posts__inputContainer">
+          <Input
+            onChange={searchByTitle}
+            placeholder="Title search"
+            className="posts__searchInput"
+          />
+          <Input
+            onChange={searchByText}
+            placeholder="Text search"
+            className="posts__searchInput"
+          />
+        </div>
         <Table theadData={tableHead} tbodyData={posts}>
           <TableHead>
             <TableRow>
@@ -82,22 +116,12 @@ export default function Posts() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {posts.map((data) => {
+            {filteredPosts.map((data) => {
               return (
                 <TableRow key={data.id} post={data}>
-                  <TableCell
-                    data={getHighlightedText(
-                      data.userId.toString(),
-                      searchQuery
-                    )}
-                    isCentered={true}
-                  />
-                  <TableCell
-                    data={getHighlightedText(data.title, searchQuery)}
-                  />
-                  <TableCell
-                    data={getHighlightedText(data.body, searchQuery)}
-                  />
+                  <TableCell data={data.userId.toString()} isCentered={true} />
+                  <TableCell data={data.title} />
+                  <TableCell data={data.body} />
                 </TableRow>
               );
             })}
