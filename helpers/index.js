@@ -35,26 +35,25 @@ export const getHighlightedText = (text, highlight) => {
   );
 };
 
-export const sortByFieldName = (fieldName) => {
-  const sorted = [];
-  const isSorted = null;
+export const sortByFieldName = (fieldName, data, sortedField, isSorted) => {
+  let newIsSorted = false;
+  let sorted;
   if (fieldName === sortedField && isSorted) {
-    sorted = users.sort((a, b) => {
+    sorted = data.sort((a, b) => {
       return a[fieldName].toString().toLowerCase() >
         b[fieldName].toString().toLowerCase()
         ? -1
         : 1;
     });
-    isSorted = false;
   } else {
-    sorted = users.sort((a, b) => {
+    sorted = data.sort((a, b) => {
       return a[fieldName].toString().toLowerCase() <
         b[fieldName].toString().toLowerCase()
         ? -1
         : 1;
     });
-    isSorted = true;
+    newIsSorted = true;
   }
 
-  return { data: sorted, fieldName, isSorted };
+  return { newIsSorted, sorted };
 };

@@ -47,29 +47,17 @@ export default function HomeContent() {
   const handleSearch = (value) => {
     setSearchQuery(value);
   };
-  const sortByFieldName = (fieldName) => {
-    const sorted = [];
-    setSortedField(fieldName);
-    if (fieldName === sortedField && isSorted) {
-      sorted = users.sort((a, b) => {
-        return a[fieldName].toString().toLowerCase() >
-          b[fieldName].toString().toLowerCase()
-          ? -1
-          : 1;
-      });
-      setIsSorted(false);
-    } else {
-      sorted = users.sort((a, b) => {
-        return a[fieldName].toString().toLowerCase() <
-          b[fieldName].toString().toLowerCase()
-          ? -1
-          : 1;
-      });
-      setIsSorted(true);
-    }
 
+  const sortUsers = (fieldName) => {
+    const { newIsSorted, sorted } = sortByFieldName(
+      fieldName,
+      users,
+      sortedField,
+      isSorted
+    );
+    setSortedField(fieldName);
+    setIsSorted(newIsSorted);
     setUsers([...sorted]);
-    return;
   };
   if (loading) {
     return <Loader />;
@@ -93,7 +81,7 @@ export default function HomeContent() {
               {tableHead.map((h) => {
                 return (
                   <TableHeadItem
-                    sort={sortByFieldName}
+                    sort={sortUsers}
                     sortedField={sortedField}
                     isSorted={isSorted}
                     key={h}
