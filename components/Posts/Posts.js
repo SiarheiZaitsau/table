@@ -25,30 +25,6 @@ export default function Posts() {
   const numberOfPages = 10;
   const tableHead = ["userId", "title", "body"];
 
-  // const sortByFieldName = (fieldName) => {
-  //   const sorted = [];
-  //   setSortedField(fieldName);
-  //   if (fieldName === sortedField && isSorted) {
-  //     sorted = posts.sort((a, b) => {
-  //       return a[fieldName].toString().toLowerCase() >
-  //         b[fieldName].toString().toLowerCase()
-  //         ? -1
-  //         : 1;
-  //     });
-  //     setIsSorted(false);
-  //   } else {
-  //     sorted = posts.sort((a, b) => {
-  //       return a[fieldName].toString().toLowerCase() <
-  //         b[fieldName].toString().toLowerCase()
-  //         ? -1
-  //         : 1;
-  //     });
-  //     setIsSorted(true);
-  //   }
-
-  //   setPosts([...sorted]);
-  //   return;
-  // };
   const sortPosts = (fieldName) => {
     const { newIsSorted, sorted } = sortByFieldName(
       fieldName,
