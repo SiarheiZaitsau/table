@@ -1,12 +1,12 @@
 import React from "react";
 import cn from "classnames";
-import styles from "./Input.module.scss";
+
 export default function Input({ type, placeholder, onChange, className }) {
   return (
     <input
-      className={cn(className, styles.input)}
+      className={cn(className, "input")}
       placeholder={placeholder}
-      type="type"
+      type={type}
       onChange={(e) => onChange(e.target.value)}
     />
   );

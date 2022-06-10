@@ -14,9 +14,7 @@ function Pagination({ currentPage, numberOfPages, changePage }) {
         disabled={currentPage === 1}
         className="pagination__changePageButton"
       >
-        <PaginationIcon
-          className={cn("pagination__icon", "pagination__prevIcon")}
-        />
+        <PaginationIcon className="pagination__icon" />
       </button>
       {currentPage !== 1 && (
         <button className="pagination__button" onClick={() => changePage(1)}>
@@ -63,9 +61,7 @@ function Pagination({ currentPage, numberOfPages, changePage }) {
         disabled={currentPage === numberOfPages}
         className="pagination__changePageButton"
       >
-        <PaginationIcon
-          className={cn("pagination__icon", "pagination__nextIcon")}
-        />
+        <PaginationIcon className="pagination__icon" />
       </button>
     </div>
   );

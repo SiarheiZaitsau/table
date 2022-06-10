@@ -4,7 +4,7 @@ import Table from "../../elements/Table/Table";
 import Pagination from "../../elements/Pagination/Pagination";
 import Loader from "../../elements/Loader/Loader";
 import Input from "../../elements/Input/Input";
-
+import { sortByFieldName } from "../../helpers/index";
 import {
   TableRow,
   TableHeadItem,
@@ -25,29 +25,40 @@ export default function Posts() {
   const numberOfPages = 10;
   const tableHead = ["userId", "title", "body"];
 
-  const sortByFieldName = (fieldName) => {
-    const sorted = [];
-    setSortedField(fieldName);
-    if (fieldName === sortedField && isSorted) {
-      sorted = posts.sort((a, b) => {
-        return a[fieldName].toString().toLowerCase() >
-          b[fieldName].toString().toLowerCase()
-          ? -1
-          : 1;
-      });
-      setIsSorted(false);
-    } else {
-      sorted = posts.sort((a, b) => {
-        return a[fieldName].toString().toLowerCase() <
-          b[fieldName].toString().toLowerCase()
-          ? -1
-          : 1;
-      });
-      setIsSorted(true);
-    }
+  // const sortByFieldName = (fieldName) => {
+  //   const sorted = [];
+  //   setSortedField(fieldName);
+  //   if (fieldName === sortedField && isSorted) {
+  //     sorted = posts.sort((a, b) => {
+  //       return a[fieldName].toString().toLowerCase() >
+  //         b[fieldName].toString().toLowerCase()
+  //         ? -1
+  //         : 1;
+  //     });
+  //     setIsSorted(false);
+  //   } else {
+  //     sorted = posts.sort((a, b) => {
+  //       return a[fieldName].toString().toLowerCase() <
+  //         b[fieldName].toString().toLowerCase()
+  //         ? -1
+  //         : 1;
+  //     });
+  //     setIsSorted(true);
+  //   }
 
+  //   setPosts([...sorted]);
+  //   return;
+  // };
+  const sortPosts = (fieldName) => {
+    const { newIsSorted, sorted } = sortByFieldName(
+      fieldName,
+      posts,
+      sortedField,
+      isSorted
+    );
+    setSortedField(fieldName);
+    setIsSorted(newIsSorted);
     setPosts([...sorted]);
-    return;
   };
   useEffect(() => {
     setIsLoading(true);
@@ -62,6 +73,7 @@ export default function Posts() {
     };
     fetchData();
   }, [currentPage, itemsPerPage]);
+
   useEffect(() => {
     let filtered = [...posts];
     filtered = posts
@@ -75,6 +87,7 @@ export default function Posts() {
       );
     setFilteredPosts(filtered);
   }, [postTitleQuery, postBodyQuery, posts]);
+
   if (isLoading) {
     return <Loader />;
   }
@@ -85,8 +98,8 @@ export default function Posts() {
     setPostTitleQuery(string);
   };
   return (
-    <div className="container">
-      <div className="posts">
+    <div className="posts">
+      <div className="container">
         <div className="posts__inputContainer">
           <Input
             onChange={searchByTitle}
@@ -102,14 +115,14 @@ export default function Posts() {
         <Table theadData={tableHead} tbodyData={posts}>
           <TableHead>
             <TableRow>
-              {tableHead.map((h) => {
+              {tableHead.map((item) => {
                 return (
                   <TableHeadItem
-                    sort={sortByFieldName}
+                    sort={sortPosts}
                     sortedField={sortedField}
                     isSorted={isSorted}
-                    key={h}
-                    item={h}
+                    key={item}
+                    item={item}
                   />
                 );
               })}
@@ -127,6 +140,7 @@ export default function Posts() {
             })}
           </TableBody>
         </Table>
+
         <Pagination
           currentPage={currentPage}
           numberOfPages={numberOfPages}

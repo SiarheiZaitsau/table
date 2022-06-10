@@ -6,8 +6,8 @@ import TableCell from "./TableCell";
 
 import cn from "classnames";
 
-const Table = ({ customClass, children }) => {
-  return <table className={cn("table", customClass)}>{children}</table>;
+const Table = ({ className, children }) => {
+  return <table className={cn("table", className)}>{children}</table>;
 };
 export default Table;
 

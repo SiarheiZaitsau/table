@@ -19,21 +19,19 @@ const tableHead = ["name", "username", "email", "phone", "website", "city"];
 
 export default function HomeContent() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortedField, setSortedField] = useState(null);
   const [isSorted, setIsSorted] = useState(null);
-  const dispatch = useDispatch();
-
+  const resData = useSelector(getUsers);
+  const loading = useSelector(getUsersLoading);
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
   const rowClick = (id, name) => {
     router.push({ pathname: `${id}` });
   };
-  const resData = useSelector(getUsers);
-  const loading = useSelector(getUsersLoading);
-
   useEffect(() => {
     const filteredData = resData.filter((user) => {
       return Object.values(user)
@@ -43,10 +41,6 @@ export default function HomeContent() {
     });
     setUsers(filteredData);
   }, [searchQuery, resData]);
-
-  const handleSearch = (value) => {
-    setSearchQuery(value);
-  };
 
   const sortUsers = (fieldName) => {
     const { newIsSorted, sorted } = sortByFieldName(
@@ -69,7 +63,7 @@ export default function HomeContent() {
           className="users__searchInput"
           type="search"
           placeholder="Your Search"
-          onChange={handleSearch}
+          onChange={setSearchQuery}
         />
         <Table
           highlighting={searchQuery}
