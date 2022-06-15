@@ -35,9 +35,8 @@ export default function HomeContent() {
   useEffect(() => {
     const filteredData = resData.filter((user) => {
       return Object.values(user)
-        .join(" ")
+        .join(", ")
         .toLowerCase()
-        .trim()
         .includes(searchQuery.toLowerCase());
     });
     setUsers(filteredData);
